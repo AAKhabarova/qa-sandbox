@@ -38,9 +38,16 @@ services:
       CORS_ORIGINS: "http://localhost:3000,http://localhost:5173"
       UPLOAD_DIR: /app/uploads
       RATE_LIMIT_PER_MINUTE: "100"
+      SMTP_HOST: mailcatcher
+      SMTP_PORT: 1025
+      SMTP_TLS: "false"
+      SMTP_USER: ""
+      SMTP_PASSWORD: ""
     depends_on:
       db:
         condition: service_healthy
+      mailcatcher:
+        condition: service_started
     volumes:
       - ./backend/app:/app/app
       - uploads:/app/uploads
@@ -56,7 +63,11 @@ services:
       - backend
     volumes:
       - ./frontend/src:/app/src
-
+  mailcatcher:
+    image: schickling/mailcatcher
+    ports: 
+      - "1080:1080"   # веб-интерфейс (просмотр писем)
+      - "1025:1025"   # SMTP-сервер (сюда бэкенд шлёт письма)
 volumes:
   pgdata:
   uploads:

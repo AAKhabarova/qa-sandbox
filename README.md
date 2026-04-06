@@ -403,3 +403,5 @@ Host: localhost | Port: 5432 | DB: buzzhive | User: buzzhive_user | Password: bu
 ---
 
 Built with FastAPI, React, PostgreSQL, Docker. Made for the QA community.
+
+Mailcatcher localhost: http://localhost:1080
